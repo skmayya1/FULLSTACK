@@ -1,0 +1,21 @@
+services:
+  backend:
+    image: backend
+    build:
+      context: ./backend
+      dockerfile: backend.dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://sk:sk@db:5432/sk?schema=public"
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: sk
+      POSTGRES_PASSWORD: sk
+      POSTGRES_DB: sk
+    ports:
+      - "5432:5432"
